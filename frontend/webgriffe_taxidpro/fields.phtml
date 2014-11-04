@@ -1,0 +1,169 @@
+<?php
+    /** @var Webgriffe_TaxIdPro_Block_Fields $this */
+
+    $editBlock = $this->getParentBlock();
+?>
+<!-- TaxIdPro - Begin -->
+<li class="fields">
+    <div class="field">
+        <label for="<?php echo $this->getIsBusinessAddressId() ?>" class="required"><em>*</em><?php echo $editBlock->__('Is Business Address') ?></label>
+        <div class="input-box">
+            <select name="<?php echo $this->getIsBusinessAddressName() ?>"  title="<?php echo $editBlock->__('Is Business Address') ?>" class="required-entry" id="<?php echo $this->getIsBusinessAddressId() ?>">
+                <option value="0" <?php echo $editBlock->getAddress()->getIsBusinessAddress() ? '' : 'selected="selected"' ?>><?php print $editBlock->__('No') ?></option>
+                <option value="1" <?php echo $editBlock->getAddress()->getIsBusinessAddress() ? 'selected="selected"' : '' ?>><?php print $editBlock->__('Yes') ?></option>
+            </select>
+        </div>
+    </div>
+    <div class="field">
+        <label for="<?php echo $this->getTaxCodeId() ?>" class="required"><em id="<?php echo $this->getTaxCodeEmId() ?>">*</em><?php echo $editBlock->__('Tax Code') ?></label>
+        <div class="input-box">
+            <input type="text" name="<?php echo $this->getTaxCodeName() ?>" value="<?php echo $editBlock->escapeHtml($editBlock->getAddress()->getTaxCode()) ?>" title="<?php echo $editBlock->__('Tax Code') ?>" class="input-text required-entry validate-tax_code" id="<?php echo $this->getTaxCodeId() ?>" style="text-transform:uppercase;" />
+        </div>
+    </div>
+</li>
+
+<li class="fields show-in-business-only" <?php echo $editBlock->getAddress()->getIsBusinessAddress() ? '' : 'style="display:none;"' ?>>
+    <div class="field">
+        <label for="<?php echo $this->getCompanyId() ?>" class="required"><em>*</em><?php echo $editBlock->__('Company') ?></label>
+        <div class="input-box">
+            <input type="text" name="<?php echo $this->getCompanyName() ?>" id="<?php echo $this->getCompanyId() ?>" title="<?php echo $editBlock->__('Company') ?>" value="<?php echo $editBlock->escapeHtml($editBlock->getAddress()->getCompany()) ?>" class="input-text required-entry" />
+        </div>
+    </div>
+    <div class="field">
+        <label for="<?php echo $this->getVatNumberId() ?>" class="required"><em id="<?php echo $this->getVatNumberEmId() ?>">*</em><?php echo $editBlock->__('VAT Number') ?></label>
+        <div class="input-box">
+            <input type="text" name="<?php echo $this->getVatNumberName() ?>" value="<?php echo $editBlock->escapeHtml($editBlock->getAddress()->getVatNumber()) ?>" title="<?php echo $editBlock->__('VAT Number') ?>" class="input-text required-entry validate-vat_number" id="<?php echo $this->getVatNumberId() ?>" />
+        </div>
+    </div>
+</li>
+
+<script type="text/javascript">
+    //<![CDATA[
+
+    function countryIsRequired(element) {
+        var taxcodeCountries = 'IT';
+        if(taxcodeCountries.indexOf(element.getValue()) >= 0) {
+            $('<?php echo $this->getTaxCodeEmId() ?>').innerHTML = '*';
+            $('<?php echo $this->getTaxCodeId() ?>').className = 'required-entry input-text validate-tax_code';
+        }
+        else {
+            $('<?php echo $this->getTaxCodeEmId() ?>').innerHTML = '';
+            if ($('advice-required-entry-<?php echo $this->getTaxCodeId() ?>')) {
+                $('advice-required-entry-<?php echo $this->getTaxCodeId() ?>').hide();
+            }
+            $('<?php echo $this->getTaxCodeId() ?>').className = 'input-text validate-tax_code';
+        }
+
+        var vatnumberCountries = 'IT';
+        if(vatnumberCountries.indexOf(element.getValue()) >= 0) {
+            $('<?php echo $this->getVatNumberEmId() ?>').innerHTML = '*';
+            $('<?php echo $this->getVatNumberId() ?>').className = 'required-entry input-text validate-vat_number';
+        }
+        else {
+            $('<?php echo $this->getVatNumberEmId() ?>').innerHTML = '';
+            if ($('advice-required-entry-<?php echo $this->getVatNumberId() ?>')) {
+                $('advice-required-entry-<?php echo $this->getVatNumberId() ?>').hide();
+            }
+            $('<?php echo $this->getVatNumberId() ?>').className = 'input-text validate-vat_number';
+        }
+    }
+
+    function ControllaCF(cf)
+    {
+        var validi, i, s, set1, set2, setpari, setdisp;
+        if( cf == '' )  {
+            return false;
+        }
+        cf = cf.toUpperCase();
+        if( cf.length != 16 ) {
+            return false;
+        }
+        validi = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+        for( i = 0; i < 16; i++ ){
+            if( validi.indexOf( cf.charAt(i) ) == -1 ) {
+                return false;
+            }
+        }
+        set1 = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        set2 = "ABCDEFGHIJABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        setpari = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        setdisp = "BAKPLCQDREVOSFTGUHMINJWZYX";
+        s = 0;
+        for( i = 1; i <= 13; i += 2 ) {
+            s += setpari.indexOf( set2.charAt( set1.indexOf( cf.charAt(i) )));
+        }
+        for( i = 0; i <= 14; i += 2 ) {
+            s += setdisp.indexOf( set2.charAt( set1.indexOf( cf.charAt(i) )));
+        }
+        return ( s%26 == cf.charCodeAt(15)-'A'.charCodeAt(0) );
+    }
+
+    function ControllaPIVA(pi)
+    {
+        if( pi == '' )  {
+            return false;
+        }
+        if( pi.length != 11 ) {
+            return false;
+        }
+        validi = "0123456789";
+        for( i = 0; i < 11; i++ ){
+            if( validi.indexOf( pi.charAt(i) ) == -1 ) {
+                return false;
+            }
+        }
+        s = 0;
+        for( i = 0; i <= 9; i += 2 ) {
+            s += pi.charCodeAt(i) - '0'.charCodeAt(0);
+        }
+        for( i = 1; i <= 9; i += 2 ) {
+            c = 2*( pi.charCodeAt(i) - '0'.charCodeAt(0) );
+            if( c > 9 ) {
+                c = c - 9;
+            }
+            s += c;
+        }
+        return ( ( 10 - s%10 )%10 == pi.charCodeAt(10) - '0'.charCodeAt(0) );
+    }
+
+    Event.observe(window, 'load', function() {
+        $('is_business_address').observe('change', function(event) {
+            if(parseInt(this.getValue())) { // If is a business address...
+                $$('.show-in-business-only').invoke('show');
+            }
+            else {
+                $('<?php echo $this->getVatNumberId() ?>').setValue('');
+                $('company').setValue('');
+                $$('.show-in-business-only').invoke('hide');
+            }
+        });
+
+        $('<?php echo $this->getTaxCodeId() ?>').observe('blur', function(event) {
+            this.setValue(this.getValue().toUpperCase());
+        });
+        $('<?php echo $this->getVatNumberId() ?>').observe('blur', function(event) {
+            this.setValue(this.getValue().toUpperCase());
+        });
+
+        Validation.addAllThese([
+            ['validate-tax_code', '<?php echo $editBlock->__("Please, enter a valid Tax Code.") ?>', function (v, elm) {
+                elm.value = elm.value.toUpperCase();
+                return $('<?php echo $this->getCountryId() ?>').value != 'IT' || ControllaCF(elm.value);
+            }],
+            ['validate-vat_number', '<?php echo $editBlock->__("Please, enter a valid VAT Number.") ?>', function (v, elm) {
+                elm.value = elm.value.toUpperCase();
+                return $('<?php echo $this->getCountryId() ?>').value != 'IT' || ControllaPIVA(elm.value);
+            }]
+        ]);
+
+        countryIsRequired($('<?php echo $this->getCountryId() ?>'));
+
+        $('<?php echo $this->getCountryId() ?>').observe('change', function(event) {
+            countryIsRequired($('<?php echo $this->getCountryId() ?>'));
+        });
+    });
+
+    //]]>
+</script>
+
+<!-- TaxIdPro - End -->
