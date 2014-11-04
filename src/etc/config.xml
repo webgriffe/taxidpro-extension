@@ -8,48 +8,60 @@
             </depends>
         </Webgriffe_TaxIdPro>
     </modules>
-    
-    <admin>    	
+
+    <admin>
         <fieldsets>
             <customer_dataflow>
-            	<!-- Tipo registrazione: Persona Fisica (0) o Giuridica (1) -->
-              <is_business_address><billing>1</billing><shipping>1</shipping><mapped>1</mapped></is_business_address>
-              <!-- Codice Fiscale -->
-							<tax_code><billing>1</billing><shipping>1</shipping><mapped>1</mapped></tax_code>
-							<!-- Partita IVA -->
-              <vat_number><billing>1</billing><shipping>1</shipping><mapped>1</mapped></vat_number>
+                <!-- Tipo registrazione: Persona Fisica (0) o Giuridica (1) -->
+                <is_business_address>
+                    <billing>1</billing>
+                    <shipping>1</shipping>
+                    <mapped>1</mapped>
+                </is_business_address>
+                <!-- Codice Fiscale -->
+                <tax_code>
+                    <billing>1</billing>
+                    <shipping>1</shipping>
+                    <mapped>1</mapped>
+                </tax_code>
+                <!-- Partita IVA -->
+                <vat_number>
+                    <billing>1</billing>
+                    <shipping>1</shipping>
+                    <mapped>1</mapped>
+                </vat_number>
             </customer_dataflow>
         </fieldsets>
-				
-				<routers>
-				    <webgriffe_taxidpro>
-				        <use>admin</use>
-				        <args>
-				            <module>Webgriffe_TaxIdPro</module>
-				            <frontName>taxidpro</frontName>
-				        </args>
-				    </webgriffe_taxidpro>
-				</routers>
+
+        <routers>
+            <webgriffe_taxidpro>
+                <use>admin</use>
+                <args>
+                    <module>Webgriffe_TaxIdPro</module>
+                    <frontName>taxidpro</frontName>
+                </args>
+            </webgriffe_taxidpro>
+        </routers>
     </admin>
-		
-		<adminhtml>
-			<translate>
-          <modules>
-              <Webgriffe_TaxIdPro>
-                  <files>
-                      <default>Webgriffe_TaxIdPro.csv</default>
-                  </files>
-              </Webgriffe_TaxIdPro>
-          </modules>
-      </translate>
-		</adminhtml>
+
+    <adminhtml>
+        <translate>
+            <modules>
+                <Webgriffe_TaxIdPro>
+                    <files>
+                        <default>Webgriffe_TaxIdPro.csv</default>
+                    </files>
+                </Webgriffe_TaxIdPro>
+            </modules>
+        </translate>
+    </adminhtml>
     
     <global>
-			<helpers>
-				<taxidpro>
-					<class>Webgriffe_TaxIdPro_Helper</class>
-	      		</taxidpro>
-			</helpers>		
+        <helpers>
+            <webgriffe_taxidpro>
+                <class>Webgriffe_TaxIdPro_Helper</class>
+            </webgriffe_taxidpro>
+        </helpers>
 
         <models>
             <webgriffe_taxidpro>
@@ -58,77 +70,101 @@
                 </class>
             </webgriffe_taxidpro>
         </models>
-				
-				<blocks>
-					<taxid>					
-						<class>Webgriffe_TaxIdPro_Block</class>					
-					</taxid>
-					
-					<customer>
-						<rewrite>
-							<address_edit>Webgriffe_TaxIdPro_Block_AddressEdit</address_edit>
-						</rewrite>
-					</customer>
-					<checkout>
-						<rewrite>
-							<onepage_billing>Webgriffe_TaxIdPro_Block_OnepageBilling</onepage_billing>
-							<onepage_shipping>Webgriffe_TaxIdPro_Block_OnepageShipping</onepage_shipping>
-						</rewrite>
-					</checkout>
-				</blocks>
-				
-				<rewrite>
-					<webgriffe_taxidpro_system_config>
-						<from><![CDATA[#^/admin/system_config/#]]></from>
-						<to>/taxidpro/system_config/</to>
-					</webgriffe_taxidpro_system_config>
-				</rewrite>
-        
+
+        <blocks>
+            <webgriffe_taxidpro>
+                <class>Webgriffe_TaxIdPro_Block</class>
+            </webgriffe_taxidpro>
+        </blocks>
+
+        <rewrite>
+            <webgriffe_taxidpro_system_config>
+                <from><![CDATA[#^/admin/system_config/#]]></from>
+                <to>/taxidpro/system_config/</to>
+            </webgriffe_taxidpro_system_config>
+        </rewrite>
+
         <resources>
             <webgriffe_taxidpro_setup>
                 <connection>
                     <use>core_setup</use>
                 </connection>
-                
+
                 <setup>
                     <module>Webgriffe_TaxIdPro</module>
                     <class>Webgriffe_TaxIdPro_Model_Entity_Setup</class>
                 </setup>
             </webgriffe_taxidpro_setup>
         </resources>
-        
+
         <fieldsets>
             <customer_address>
-                <is_business_address><to_quote_address>*</to_quote_address></is_business_address>
-                <tax_code><to_quote_address>*</to_quote_address></tax_code>
-                <vat_number><to_quote_address>*</to_quote_address></vat_number>
+                <is_business_address>
+                    <to_quote_address>*</to_quote_address>
+                </is_business_address>
+                <tax_code>
+                    <to_quote_address>*</to_quote_address>
+                </tax_code>
+                <vat_number>
+                    <to_quote_address>*</to_quote_address>
+                </vat_number>
             </customer_address>
-            
+
             <sales_copy_order_billing_address>
-                <is_business_address><to_order>*</to_order></is_business_address>
-                <tax_code><to_order>*</to_order></tax_code>
-                <vat_number><to_order>*</to_order></vat_number>								
+                <is_business_address>
+                    <to_order>*</to_order>
+                </is_business_address>
+                <tax_code>
+                    <to_order>*</to_order>
+                </tax_code>
+                <vat_number>
+                    <to_order>*</to_order>
+                </vat_number>
             </sales_copy_order_billing_address>
-            
+
             <sales_copy_order_shipping_address>
-                <is_business_address><to_order>*</to_order></is_business_address>
-                <tax_code><to_order>*</to_order></tax_code>
-                <vat_number><to_order>*</to_order></vat_number>
+                <is_business_address>
+                    <to_order>*</to_order>
+                </is_business_address>
+                <tax_code>
+                    <to_order>*</to_order>
+                </tax_code>
+                <vat_number>
+                    <to_order>*</to_order>
+                </vat_number>
             </sales_copy_order_shipping_address>
-            
+
             <sales_convert_quote_address>
-                <is_business_address><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></is_business_address>
-                <tax_code><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></tax_code>
-                <vat_number><to_order_address>*</to_order_address><to_customer_address>*</to_customer_address></vat_number>
+                <is_business_address>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </is_business_address>
+                <tax_code>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </tax_code>
+                <vat_number>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </vat_number>
             </sales_convert_quote_address>
-            
+
             <sales_convert_order_address>
-                <is_business_address><to_quote_address>*</to_quote_address><to_customer_address>*</to_customer_address></is_business_address>
-                <tax_code><to_quote_address>*</to_quote_address><to_customer_address>*</to_customer_address></tax_code>
-                <vat_number><to_quote_address>*</to_quote_address><to_customer_address>*</to_customer_address></vat_number>
+                <is_business_address>
+                    <to_quote_address>*</to_quote_address>
+                    <to_customer_address>*</to_customer_address>
+                </is_business_address>
+                <tax_code>
+                    <to_quote_address>*</to_quote_address>
+                    <to_customer_address>*</to_customer_address>
+                </tax_code>
+                <vat_number>
+                    <to_quote_address>*</to_quote_address>
+                    <to_customer_address>*</to_customer_address>
+                </vat_number>
             </sales_convert_order_address>
         </fieldsets>
-        
+
         <customer>
             <address>
                 <formats>
@@ -204,33 +240,25 @@ T: {{var telephone}}
 {{depend telephone}}T: {{var telephone}}{{/depend}}|
 {{depend fax}}<br/>F: {{var fax}}{{/depend}}|
             ]]></defaultFormat>
-                    </pdf>                   
-										<js_template template="title" module="customer">
+                    </pdf>
+                    <js_template template="title" module="customer">
                         <title>Javascript Template</title>
                         <defaultFormat><![CDATA[#{prefix} #{firstname} #{middlename} #{lastname} #{suffix}<br/>#{company}<br/>#{tax_code}#{vat_number}<br/>#{street0}<br/>#{street1}<br/>#{street2}<br/>#{street3}<br/>#{city}, #{region}, #{postcode}<br/>#{country_id}<br/>T: #{telephone}<br/>F: #{fax}]]></defaultFormat>
                     </js_template>
                 </formats>
             </address>
         </customer>
-        
     </global>
-		
-		<frontend>
-			<!--<layout>
-          <updates>
-              <taxidpro module="Webgriffe_TaxIdPro">
-                  <file>taxidpro.xml</file>
-              </taxidpro>
-          </updates>
-      </layout>-->
-			<translate>
-          <modules>
-              <Webgriffe_TaxIdPro>
-                  <files>
-                      <default>Webgriffe_TaxIdPro.csv</default>
-                  </files>
-              </Webgriffe_TaxIdPro>
-          </modules>
-      </translate>
-		</frontend>
+
+    <frontend>
+        <translate>
+            <modules>
+                <Webgriffe_TaxIdPro>
+                    <files>
+                        <default>Webgriffe_TaxIdPro.csv</default>
+                    </files>
+                </Webgriffe_TaxIdPro>
+            </modules>
+        </translate>
+    </frontend>
 </config>
