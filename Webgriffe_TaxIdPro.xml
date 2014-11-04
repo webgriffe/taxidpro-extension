@@ -3,7 +3,7 @@
 	<modules>
  		<Webgriffe_TaxIdPro>
 			<active>true</active>
-			<codePool>local</codePool>
+			<codePool>community</codePool>
 		</Webgriffe_TaxIdPro>
 	</modules>
 </config>
