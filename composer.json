@@ -1,0 +1,11 @@
+{
+    "name": "webgriffe/taxidpro-extension",
+    "type": "magento-module",
+    "description":"Magento extension for italian tax code and VAT number management.",
+    "authors":[
+        {
+            "name":"Webgriffe SRL",
+            "email":"support@webgriffe.com"
+        }
+    ]
+}
