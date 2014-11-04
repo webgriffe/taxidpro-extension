@@ -1,5 +1,6 @@
-src						app/code/community/Webgriffe/TaxIdPro/
-Webgriffe_TaxIdPro.xml				app/etc/modules/Webgriffe_TaxIdPro.xml
+src						                app/code/community/Webgriffe/TaxIdPro/
+frontend/webgriffe_taxidpro.xml         app/design/frontend/base/default/layout/webgriffe_taxidpro.xml
+Webgriffe_TaxIdPro.xml				    app/etc/modules/Webgriffe_TaxIdPro.xml
 locale/en_US/Webgriffe_TaxIdPro.csv		app/locale/en_US/Webgriffe_TaxIdPro.csv
 locale/it_IT/Webgriffe_TaxIdPro.csv		app/locale/it_IT/Webgriffe_TaxIdPro.csv
 

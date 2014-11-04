@@ -251,6 +251,13 @@ T: {{var telephone}}
     </global>
 
     <frontend>
+        <layout>
+            <updates>
+                <webgriffe_taxidpro>
+                    <file>webgriffe_taxidpro.xml</file>
+                </webgriffe_taxidpro>
+            </updates>
+        </layout>
         <translate>
             <modules>
                 <Webgriffe_TaxIdPro>
