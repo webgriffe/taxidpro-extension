@@ -93,16 +93,20 @@
         return ( ( 10 - s%10 )%10 == pi.charCodeAt(10) - '0'.charCodeAt(0) );
     }
 
+    function toggleBusinessFields(isBusinessAddressElement) {
+        if (parseInt(isBusinessAddressElement.getValue())) { // If is a business address...
+            $$('.show-in-business-only').invoke('show');
+        }
+        else {
+            $('<?php echo $editBlock->getVatNumberId() ?>').setValue('');
+            $('<?php echo $editBlock->getCompanyId() ?>').setValue('');
+            $$('.show-in-business-only').invoke('hide');
+        }
+    }
+
     Event.observe(window, 'load', function() {
         $('<?php echo $editBlock->getIsBusinessAddressId() ?>').observe('change', function(event) {
-            if(parseInt(this.getValue())) { // If is a business address...
-                $$('.show-in-business-only').invoke('show');
-            }
-            else {
-                $('<?php echo $editBlock->getVatNumberId() ?>').setValue('');
-                $('<?php echo $editBlock->getCompanyId() ?>').setValue('');
-                $$('.show-in-business-only').invoke('hide');
-            }
+            toggleBusinessFields(this);
         });
 
         $('<?php echo $editBlock->getTaxCodeId() ?>').observe('blur', function(event) {
