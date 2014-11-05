@@ -2,8 +2,9 @@
 <config>
     <modules>
         <Webgriffe_TaxIdPro>
-            <version>1.2</version>
+            <version>2.0.0</version>
             <depends>
+                <Mage_Core/>
                 <Mage_Customer/>
             </depends>
         </Webgriffe_TaxIdPro>
@@ -32,16 +33,6 @@
                 </vat_number>
             </customer_dataflow>
         </fieldsets>
-
-        <routers>
-            <webgriffe_taxidpro>
-                <use>admin</use>
-                <args>
-                    <module>Webgriffe_TaxIdPro</module>
-                    <frontName>taxidpro</frontName>
-                </args>
-            </webgriffe_taxidpro>
-        </routers>
     </admin>
 
     <adminhtml>
@@ -77,13 +68,6 @@
             </webgriffe_taxidpro>
         </blocks>
 
-        <rewrite>
-            <webgriffe_taxidpro_system_config>
-                <from><![CDATA[#^/admin/system_config/#]]></from>
-                <to>/taxidpro/system_config/</to>
-            </webgriffe_taxidpro_system_config>
-        </rewrite>
-
         <resources>
             <webgriffe_taxidpro_setup>
                 <connection>
@@ -92,7 +76,7 @@
 
                 <setup>
                     <module>Webgriffe_TaxIdPro</module>
-                    <class>Webgriffe_TaxIdPro_Model_Entity_Setup</class>
+                    <class>Mage_Customer_Model_Entity_Setup</class>
                 </setup>
             </webgriffe_taxidpro_setup>
         </resources>
