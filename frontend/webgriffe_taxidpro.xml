@@ -2,7 +2,9 @@
 <layout version="0.1.0">
     <customer_address_form>
         <reference name="customer_address_edit">
-            <block name="webgriffe_taxidpro" type="webgriffe_taxidpro/fields" template="webgriffe_taxidpro/fields.phtml" />
+            <block name="webgriffe_taxidpro" type="webgriffe_taxidpro/fields" template="webgriffe_taxidpro/fields.phtml">
+                <block name="webgriffe_taxidpro_javascripts" type="webgriffe_taxidpro/fields" template="webgriffe_taxidpro/javascripts.phtml"/>
+            </block>
         </reference>
     </customer_address_form>
 </layout>
