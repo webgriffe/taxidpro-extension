@@ -3,7 +3,19 @@
     <customer_address_form>
         <reference name="customer_address_edit">
             <block name="webgriffe_taxidpro" type="webgriffe_taxidpro/fields" template="webgriffe_taxidpro/fields.phtml">
-                <block name="webgriffe_taxidpro_javascripts" type="webgriffe_taxidpro/fields" template="webgriffe_taxidpro/javascripts.phtml"/>
+                <action method="setTaxCodeEmId"><value>tax_code-em</value></action>
+                <action method="setTaxCodeId"><value>tax_code</value></action>
+                <action method="setTaxCodeName"><value>tax_code</value></action>
+                <action method="setVatNumberEmId"><value>vat_number-em</value></action>
+                <action method="setVatNumberId"><value>vat_number</value></action>
+                <action method="setVatNumberName"><value>vat_number</value></action>
+                <action method="setCountryId"><value>country</value></action>
+                <action method="setIsBusinessAddressId"><value>is_business_address</value></action>
+                <action method="setIsBusinessAddressName"><value>is_business_address</value></action>
+                <action method="setCompanyId"><value>company</value></action>
+                <action method="setCompanyName"><value>company</value></action>
+
+                <block name="webgriffe_taxidpro_javascripts" type="core/template" template="webgriffe_taxidpro/javascripts.phtml"/>
             </block>
         </reference>
     </customer_address_form>

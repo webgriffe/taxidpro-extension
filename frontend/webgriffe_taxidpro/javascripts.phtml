@@ -1,3 +1,8 @@
+<?php
+    /** @var Webgriffe_TaxIdPro_Block_Fields $editBlock */
+
+    $editBlock = $this->getParentBlock();
+?>
 
 <script type="text/javascript">
     //<![CDATA[
@@ -5,28 +10,28 @@
     function countryIsRequired(element) {
         var taxcodeCountries = 'IT';
         if(taxcodeCountries.indexOf(element.getValue()) >= 0) {
-            $('<?php echo $this->getTaxCodeEmId() ?>').innerHTML = '*';
-            $('<?php echo $this->getTaxCodeId() ?>').className = 'required-entry input-text validate-tax_code';
+            $('<?php echo $editBlock->getTaxCodeEmId() ?>').innerHTML = '*';
+            $('<?php echo $editBlock->getTaxCodeId() ?>').className = 'required-entry input-text validate-tax_code';
         }
         else {
-            $('<?php echo $this->getTaxCodeEmId() ?>').innerHTML = '';
-            if ($('advice-required-entry-<?php echo $this->getTaxCodeId() ?>')) {
-                $('advice-required-entry-<?php echo $this->getTaxCodeId() ?>').hide();
+            $('<?php echo $editBlock->getTaxCodeEmId() ?>').innerHTML = '';
+            if ($('advice-required-entry-<?php echo $editBlock->getTaxCodeId() ?>')) {
+                $('advice-required-entry-<?php echo $editBlock->getTaxCodeId() ?>').hide();
             }
-            $('<?php echo $this->getTaxCodeId() ?>').className = 'input-text validate-tax_code';
+            $('<?php echo $editBlock->getTaxCodeId() ?>').className = 'input-text validate-tax_code';
         }
 
         var vatnumberCountries = 'IT';
         if(vatnumberCountries.indexOf(element.getValue()) >= 0) {
-            $('<?php echo $this->getVatNumberEmId() ?>').innerHTML = '*';
-            $('<?php echo $this->getVatNumberId() ?>').className = 'required-entry input-text validate-vat_number';
+            $('<?php echo $editBlock->getVatNumberEmId() ?>').innerHTML = '*';
+            $('<?php echo $editBlock->getVatNumberId() ?>').className = 'required-entry input-text validate-vat_number';
         }
         else {
-            $('<?php echo $this->getVatNumberEmId() ?>').innerHTML = '';
-            if ($('advice-required-entry-<?php echo $this->getVatNumberId() ?>')) {
-                $('advice-required-entry-<?php echo $this->getVatNumberId() ?>').hide();
+            $('<?php echo $editBlock->getVatNumberEmId() ?>').innerHTML = '';
+            if ($('advice-required-entry-<?php echo $editBlock->getVatNumberId() ?>')) {
+                $('advice-required-entry-<?php echo $editBlock->getVatNumberId() ?>').hide();
             }
-            $('<?php echo $this->getVatNumberId() ?>').className = 'input-text validate-vat_number';
+            $('<?php echo $editBlock->getVatNumberId() ?>').className = 'input-text validate-vat_number';
         }
     }
 
@@ -89,39 +94,39 @@
     }
 
     Event.observe(window, 'load', function() {
-        $('is_business_address').observe('change', function(event) {
+        $('<?php echo $editBlock->getIsBusinessAddressId() ?>').observe('change', function(event) {
             if(parseInt(this.getValue())) { // If is a business address...
                 $$('.show-in-business-only').invoke('show');
             }
             else {
-                $('<?php echo $this->getVatNumberId() ?>').setValue('');
-                $('company').setValue('');
+                $('<?php echo $editBlock->getVatNumberId() ?>').setValue('');
+                $('<?php echo $editBlock->getCompanyId() ?>').setValue('');
                 $$('.show-in-business-only').invoke('hide');
             }
         });
 
-        $('<?php echo $this->getTaxCodeId() ?>').observe('blur', function(event) {
+        $('<?php echo $editBlock->getTaxCodeId() ?>').observe('blur', function(event) {
             this.setValue(this.getValue().toUpperCase());
         });
-        $('<?php echo $this->getVatNumberId() ?>').observe('blur', function(event) {
+        $('<?php echo $editBlock->getVatNumberId() ?>').observe('blur', function(event) {
             this.setValue(this.getValue().toUpperCase());
         });
 
         Validation.addAllThese([
-            ['validate-tax_code', '<?php echo $this->__("Please, enter a valid Tax Code.") ?>', function (v, elm) {
+            ['validate-tax_code', '<?php echo $editBlock->__("Please, enter a valid Tax Code.") ?>', function (v, elm) {
                 elm.value = elm.value.toUpperCase();
-                return $('<?php echo $this->getCountryId() ?>').value != 'IT' || ControllaCF(elm.value);
+                return $('<?php echo $editBlock->getCountryId() ?>').value != 'IT' || ControllaCF(elm.value);
             }],
-            ['validate-vat_number', '<?php echo $this->__("Please, enter a valid VAT Number.") ?>', function (v, elm) {
+            ['validate-vat_number', '<?php echo $editBlock->__("Please, enter a valid VAT Number.") ?>', function (v, elm) {
                 elm.value = elm.value.toUpperCase();
-                return $('<?php echo $this->getCountryId() ?>').value != 'IT' || ControllaPIVA(elm.value);
+                return $('<?php echo $editBlock->getCountryId() ?>').value != 'IT' || ControllaPIVA(elm.value);
             }]
         ]);
 
-        countryIsRequired($('<?php echo $this->getCountryId() ?>'));
+        countryIsRequired($('<?php echo $editBlock->getCountryId() ?>'));
 
-        $('<?php echo $this->getCountryId() ?>').observe('change', function(event) {
-            countryIsRequired($('<?php echo $this->getCountryId() ?>'));
+        $('<?php echo $editBlock->getCountryId() ?>').observe('change', function(event) {
+            countryIsRequired($('<?php echo $editBlock->getCountryId() ?>'));
         });
     });
 
