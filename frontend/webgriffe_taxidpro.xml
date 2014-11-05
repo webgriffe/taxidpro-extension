@@ -19,4 +19,42 @@
             </block>
         </reference>
     </customer_address_form>
+
+    <checkout_onepage_index>
+        <reference name="checkout.onepage.billing">
+            <block name="webgriffe_taxidpro" type="webgriffe_taxidpro/fields" template="webgriffe_taxidpro/fields.phtml">
+                <action method="setTaxCodeEmId"><value>billing:tax_code-em</value></action>
+                <action method="setTaxCodeId"><value>billing:tax_code</value></action>
+                <action method="setTaxCodeName"><value>billing[tax_code]</value></action>
+                <action method="setVatNumberEmId"><value>billing:vat_number-em</value></action>
+                <action method="setVatNumberId"><value>billing:vat_number</value></action>
+                <action method="setVatNumberName"><value>billing[vat_number]</value></action>
+                <action method="setCountryId"><value>billing:country_id</value></action>
+                <action method="setIsBusinessAddressId"><value>billing:is_business_address</value></action>
+                <action method="setIsBusinessAddressName"><value>billing[is_business_address]</value></action>
+                <action method="setCompanyId"><value>billing:company</value></action>
+                <action method="setCompanyName"><value>billing[company]</value></action>
+
+                <block name="webgriffe_taxidpro_javascripts" type="core/template" template="webgriffe_taxidpro/javascripts.phtml"/>
+            </block>
+        </reference>
+
+        <reference name="checkout.onepage.shipping">
+            <block name="webgriffe_taxidpro" type="webgriffe_taxidpro/fields" template="webgriffe_taxidpro/fields.phtml">
+                <action method="setTaxCodeEmId"><value>shipping:tax_code-em</value></action>
+                <action method="setTaxCodeId"><value>shipping:tax_code</value></action>
+                <action method="setTaxCodeName"><value>shipping[tax_code]</value></action>
+                <action method="setVatNumberEmId"><value>shipping:vat_number-em</value></action>
+                <action method="setVatNumberId"><value>shipping:vat_number</value></action>
+                <action method="setVatNumberName"><value>shipping[vat_number]</value></action>
+                <action method="setCountryId"><value>shipping:country_id</value></action>
+                <action method="setIsBusinessAddressId"><value>shipping:is_business_address</value></action>
+                <action method="setIsBusinessAddressName"><value>shipping[is_business_address]</value></action>
+                <action method="setCompanyId"><value>shipping:company</value></action>
+                <action method="setCompanyName"><value>shipping[company]</value></action>
+
+                <block name="webgriffe_taxidpro_javascripts" type="core/template" template="webgriffe_taxidpro/javascripts.phtml"/>
+            </block>
+        </reference>
+    </checkout_onepage_index>
 </layout>
