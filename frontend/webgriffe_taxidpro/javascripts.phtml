@@ -11,27 +11,27 @@
         var taxcodeCountries = 'IT';
         if(taxcodeCountries.indexOf(element.getValue()) >= 0) {
             $('<?php echo $editBlock->getTaxCodeEmId() ?>').innerHTML = '*';
-            $('<?php echo $editBlock->getTaxCodeId() ?>').className = 'required-entry input-text validate-tax_code';
+            $('<?php echo $editBlock->getTaxCodeId() ?>').addClassName('required-entry');
         }
         else {
             $('<?php echo $editBlock->getTaxCodeEmId() ?>').innerHTML = '';
             if ($('advice-required-entry-<?php echo $editBlock->getTaxCodeId() ?>')) {
                 $('advice-required-entry-<?php echo $editBlock->getTaxCodeId() ?>').hide();
             }
-            $('<?php echo $editBlock->getTaxCodeId() ?>').className = 'input-text validate-tax_code';
+            $('<?php echo $editBlock->getTaxCodeId() ?>').removeClassName('required-entry');
         }
 
         var vatnumberCountries = 'IT';
         if(vatnumberCountries.indexOf(element.getValue()) >= 0) {
             $('<?php echo $editBlock->getVatNumberEmId() ?>').innerHTML = '*';
-            $('<?php echo $editBlock->getVatNumberId() ?>').className = 'required-entry input-text validate-vat_number';
+            $('<?php echo $editBlock->getVatNumberId() ?>').addClassName('required-entry');
         }
         else {
             $('<?php echo $editBlock->getVatNumberEmId() ?>').innerHTML = '';
             if ($('advice-required-entry-<?php echo $editBlock->getVatNumberId() ?>')) {
                 $('advice-required-entry-<?php echo $editBlock->getVatNumberId() ?>').hide();
             }
-            $('<?php echo $editBlock->getVatNumberId() ?>').className = 'input-text validate-vat_number';
+            $('<?php echo $editBlock->getVatNumberId() ?>').removeClassName('required-entry');
         }
     }
 
