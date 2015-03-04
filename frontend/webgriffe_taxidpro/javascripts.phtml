@@ -119,7 +119,7 @@
         Validation.addAllThese([
             ['validate-tax_code', '<?php echo $editBlock->__("Please, enter a valid Tax Code.") ?>', function (v, elm) {
                 elm.value = elm.value.toUpperCase();
-                return $('<?php echo $editBlock->getCountryId() ?>').value != 'IT' || ControllaCF(elm.value);
+                return $('<?php echo $editBlock->getCountryId() ?>').value != 'IT' || ControllaCF(elm.value) || ControllaPIVA(elm.value);
             }],
             ['validate-vat_number', '<?php echo $editBlock->__("Please, enter a valid VAT Number.") ?>', function (v, elm) {
                 elm.value = elm.value.toUpperCase();
