@@ -40,7 +40,7 @@
     {
         var validi, i, s, set1, set2, setpari, setdisp;
         if( cf == '' )  {
-            return false;
+            return true;
         }
         cf = cf.toUpperCase();
         if( cf.length != 16 ) {
@@ -69,7 +69,7 @@
     function ControllaPIVA(pi)
     {
         if( pi == '' )  {
-            return false;
+            return true;
         }
         if( pi.length != 11 ) {
             return false;
