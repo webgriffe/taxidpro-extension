@@ -2,12 +2,13 @@
     /** @var Webgriffe_TaxIdPro_Block_Fields $editBlock */
 
     $editBlock = $this->getParentBlock();
+    $blockAlias = preg_replace('/[^a-zA-Z]/', '', $editBlock->getParentBlock()->getBlockAlias());
 ?>
 
 <script type="text/javascript">
     //<![CDATA[
 
-    function countryIsRequired(element) {
+    function <?php echo $blockAlias ?>CountryIsRequired(element) {
         var taxcodeCountries = 'IT';
         if(taxcodeCountries.indexOf(element.getValue()) >= 0) {
             $('<?php echo $editBlock->getTaxCodeEmId() ?>').innerHTML = '*';
@@ -127,10 +128,10 @@
             }]
         ]);
 
-        countryIsRequired($('<?php echo $editBlock->getCountryId() ?>'));
+        <?php echo $blockAlias ?>CountryIsRequired($('<?php echo $editBlock->getCountryId() ?>'));
 
         $('<?php echo $editBlock->getCountryId() ?>').observe('change', function(event) {
-            countryIsRequired($('<?php echo $editBlock->getCountryId() ?>'));
+            <?php echo $blockAlias ?>CountryIsRequired($('<?php echo $editBlock->getCountryId() ?>'));
         });
     });
 
