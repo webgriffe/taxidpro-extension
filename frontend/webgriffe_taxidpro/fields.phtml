@@ -6,9 +6,9 @@
 <!-- TaxIdPro - Begin -->
 <li class="fields">
     <div class="field">
-        <label for="<?php echo $this->getIsBusinessAddressId() ?>" class="required"><em>*</em><?php echo $editBlock->__('Is Business Address') ?></label>
+        <label for="<?php echo $this->getIsBusinessAddressId() ?>" class="required"><em>*</em><?php echo $editBlock->__('Is it a Business Address') ?></label>
         <div class="input-box">
-            <select name="<?php echo $this->getIsBusinessAddressName() ?>"  title="<?php echo $editBlock->__('Is Business Address') ?>" class="required-entry" id="<?php echo $this->getIsBusinessAddressId() ?>">
+            <select name="<?php echo $this->getIsBusinessAddressName() ?>"  title="<?php echo $editBlock->__('Is it a Business Address') ?>" class="required-entry" id="<?php echo $this->getIsBusinessAddressId() ?>">
                 <option value="0" <?php echo $editBlock->getAddress()->getIsBusinessAddress() ? '' : 'selected="selected"' ?>><?php print $editBlock->__('No') ?></option>
                 <option value="1" <?php echo $editBlock->getAddress()->getIsBusinessAddress() ? 'selected="selected"' : '' ?>><?php print $editBlock->__('Yes') ?></option>
             </select>

@@ -19,7 +19,7 @@ if (version_compare( Mage::getVersion() , '1.3.2.4') > 0) {
 		'is_business_address',
 			array(			
 				'type'			=> 'int',
-		    	'label'			=> Mage::helper('webgriffe_taxidpro')->__('Is Business Address'),
+		    	'label'			=> Mage::helper('webgriffe_taxidpro')->__('Is it a Business Address'),
 				'input'			=> 'select',
 				'source'        => 'eav/entity_attribute_source_boolean',
 				'visible'		=> true,
@@ -84,7 +84,7 @@ $setup->addAttribute(
 	'is_business_address',
 		array(			
 			'type'			=> 'int',
-	    	'label'			=> Mage::helper('webgriffe_taxidpro')->__('Is Business Address'),
+	    	'label'			=> Mage::helper('webgriffe_taxidpro')->__('Is it a Business Address'),
 			'input'			=> 'select',
 			'source'        => 'eav/entity_attribute_source_boolean',
 			'visible'		=> true,
