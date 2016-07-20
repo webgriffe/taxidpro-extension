@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <sections>
+        <customer>
+            <groups>
+                <address>
+                    <fields>
+                        <block_webgriffe_taxidpro transalte="label">
+                            <label>Webgriffe Tax Id Pro Configurations</label>
+                            <frontend_model>adminhtml/system_config_form_field_heading</frontend_model>
+                            <sort_order>100</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </block_webgriffe_taxidpro>
+                        <specificcountry_taxcode translate="label">
+                            <label>Tax Code mandatory from Specific Countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>110</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                        </specificcountry_taxcode>
+                        <specificcountry_taxvat translate="label">
+                            <label>Tax Vat mandatory from Specific Countries</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <sort_order>120</sort_order>
+                            <source_model>adminhtml/system_config_source_country</source_model>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <can_be_empty>1</can_be_empty>
+                        </specificcountry_taxvat>
+                    </fields>
+                </address>
+            </groups>
+        </customer>
+    </sections>
+</config>

@@ -22,3 +22,6 @@
 """%s"" is not valid.","""%s"" non è valido."
 """Tax Code"" is not valid. is not valid.","Il ""Codice Fiscale"" non è valida."
 """Vat Number"" is not valid.","La ""Partita IVA"" non è valida."
+"Webgriffe Tax Id Pro Configurations","Configurazione Webgriffe Tax Id Pro"
+"Tax Code mandatory from Specific Countries","Codice fiscale obbligatorio per i Paesi Specificati"
+"Tax Vat mandatory from Specific Countries","Partita IVA obbligatoria per i Paese specificati"

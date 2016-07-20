@@ -7,9 +7,16 @@
 
 <script type="text/javascript">
     //<![CDATA[
-
     function <?php echo $blockAlias ?>CountryIsRequired(element) {
-        var taxcodeCountries = 'IT';
+        var taxcodeCountries = new Array();
+        <?php 
+            $mandatoryCountries = Mage::helper('webgriffe_taxidpro')->getTaxCodeMandatoryCountries();
+            if (count($mandatoryCountries) > 0) {
+                foreach($mandatoryCountries as $k => $country) {
+                    echo 'taxcodeCountries['.$k.'] = "'.$country.'";'."\n";
+                }
+            }
+        ?>
         if(taxcodeCountries.indexOf(element.getValue()) >= 0) {
             $('<?php echo $editBlock->getTaxCodeEmId() ?>').innerHTML = '*';
             $('<?php echo $editBlock->getTaxCodeId() ?>').addClassName('required-entry');
@@ -22,7 +29,15 @@
             $('<?php echo $editBlock->getTaxCodeId() ?>').removeClassName('required-entry');
         }
 
-        var vatnumberCountries = 'IT';
+        var vatnumberCountries = new Array();
+        <?php 
+            $mandatoryCountries = Mage::helper('webgriffe_taxidpro')->getTaxVatMandatoryCountries();
+            if (count($mandatoryCountries) > 0) {
+                foreach($mandatoryCountries as $k => $country) {
+                    echo 'vatnumberCountries['.$k.'] = "'.$country.'";'."\n";
+                }
+            }
+        ?>
         if(vatnumberCountries.indexOf(element.getValue()) >= 0) {
             $('<?php echo $editBlock->getVatNumberEmId() ?>').innerHTML = '*';
             $('<?php echo $editBlock->getVatNumberId() ?>').addClassName('required-entry');
