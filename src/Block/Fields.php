@@ -29,7 +29,7 @@ class Webgriffe_TaxIdPro_Block_Fields extends Mage_Core_Block_Template
     private $companyName = '';
 
     private $companyId = '';
-    
+
     /**
      * @param string $companyId
      * @return $this

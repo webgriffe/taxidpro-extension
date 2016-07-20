@@ -8,16 +8,8 @@
 <script type="text/javascript">
     //<![CDATA[
     function <?php echo $blockAlias ?>CountryIsRequired(element) {
-        var taxcodeCountries = new Array();
-        <?php 
-            $mandatoryCountries = Mage::helper('webgriffe_taxidpro')->getTaxCodeMandatoryCountries();
-            if (count($mandatoryCountries) > 0) {
-                foreach($mandatoryCountries as $k => $country) {
-                    echo 'taxcodeCountries['.$k.'] = "'.$country.'";'."\n";
-                }
-            }
-        ?>
-        if(taxcodeCountries.indexOf(element.getValue()) >= 0) {
+        var taxCodeIsRequiredForItaly = <?php echo json_encode($this->helper('webgriffe_taxidpro')->isTaxCodeRequired()) ?>;
+        if(taxCodeIsRequiredForItaly && element.getValue() == 'IT') {
             $('<?php echo $editBlock->getTaxCodeEmId() ?>').innerHTML = '*';
             $('<?php echo $editBlock->getTaxCodeId() ?>').addClassName('required-entry');
         }
@@ -29,16 +21,8 @@
             $('<?php echo $editBlock->getTaxCodeId() ?>').removeClassName('required-entry');
         }
 
-        var vatnumberCountries = new Array();
-        <?php 
-            $mandatoryCountries = Mage::helper('webgriffe_taxidpro')->getTaxVatMandatoryCountries();
-            if (count($mandatoryCountries) > 0) {
-                foreach($mandatoryCountries as $k => $country) {
-                    echo 'vatnumberCountries['.$k.'] = "'.$country.'";'."\n";
-                }
-            }
-        ?>
-        if(vatnumberCountries.indexOf(element.getValue()) >= 0) {
+        var vatNumberIsRequiredForItaly = <?php echo json_encode($this->helper('webgriffe_taxidpro')->isVatNumberRequired()) ?>;
+        if(vatNumberIsRequiredForItaly && element.getValue() == 'IT') {
             $('<?php echo $editBlock->getVatNumberEmId() ?>').innerHTML = '*';
             $('<?php echo $editBlock->getVatNumberId() ?>').addClassName('required-entry');
         }

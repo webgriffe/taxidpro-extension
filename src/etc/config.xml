@@ -2,7 +2,7 @@
 <config>
     <modules>
         <Webgriffe_TaxIdPro>
-            <version>2.1.0</version>
+            <version>2.2.0</version>
             <depends>
                 <Mage_Core/>
                 <Mage_Customer/>
@@ -46,7 +46,7 @@
             </modules>
         </translate>
     </adminhtml>
-    
+
     <global>
         <helpers>
             <webgriffe_taxidpro>
@@ -252,4 +252,13 @@ T: {{var telephone}}
             </modules>
         </translate>
     </frontend>
+
+    <default>
+        <customer>
+            <wg_taxidpro>
+                <is_tax_code_required>1</is_tax_code_required>
+                <is_vat_number_required>1</is_vat_number_required>
+            </wg_taxidpro>
+        </customer>
+    </default>
 </config>

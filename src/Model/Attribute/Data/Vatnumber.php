@@ -14,7 +14,10 @@ class Webgriffe_TaxIdPro_Model_Attribute_Data_Vatnumber extends Mage_Eav_Model_A
      */
     public function validateValue($vatNumber)
     {
-        if ($this->getExtractedData('country_id') !== 'IT' || !$this->getExtractedData('is_business_address')) {
+        if (!$this->isItalianAddress() || !$this->isBusinessAddress()) {
+            return true;
+        }
+        if (empty($vatNumber) && !Mage::helper('webgriffe_taxidpro')->isVatNumberRequired()) {
             return true;
         }
         $return = $this->checkVatNumber($vatNumber);
@@ -35,22 +38,35 @@ class Webgriffe_TaxIdPro_Model_Attribute_Data_Vatnumber extends Mage_Eav_Model_A
             return $helper->__('"%s" must contains only numbers.', $label);
         }
 
-        $s = 0;
-        for ($i = 0; $i <= 9; $i += 2) {
-            $s += ord($vatNumber[$i]) - ord('0');
+        if (!$this->validateVatNumberCheckDigit($vatNumber)) {
+            return $helper->__('"%s" is not valid. The control character does not match.', $label);
         }
 
-        for ($i = 1; $i <= 9; $i += 2) {
-            $c = 2 * (ord($vatNumber[$i]) - ord('0'));
-            if ($c > 9) {
-                $c = $c - 9;
-            }
-            $s += $c;
-        }
-
-        if ((10 - $s % 10) % 10 != ord($vatNumber[10]) - ord('0')) {
-            return $helper->__('"Vat Number" is not valid. The control character does not match.', $label);
-        }
         return true;
+    }
+
+    /**
+     * @return bool
+     */
+    private function isItalianAddress()
+    {
+        return $this->getExtractedData('country_id') === 'IT';
+    }
+
+    /**
+     * @return mixed
+     */
+    private function isBusinessAddress()
+    {
+        return $this->getExtractedData('is_business_address');
+    }
+
+    /**
+     * @param $vatNumber
+     * @return bool
+     */
+    private function validateVatNumberCheckDigit($vatNumber)
+    {
+        return Mage::helper('webgriffe_taxidpro')->validateVatNumberCheckDigit($vatNumber);
     }
 }

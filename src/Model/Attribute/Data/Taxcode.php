@@ -14,7 +14,10 @@ class Webgriffe_TaxIdPro_Model_Attribute_Data_Taxcode extends Mage_Eav_Model_Att
      */
     public function validateValue($taxCode)
     {
-        if ($this->getExtractedData('country_id') !== 'IT') {
+        if (!$this->isItalianAddress()) {
+            return true;
+        }
+        if (empty($taxCode) && !Mage::helper('webgriffe_taxidpro')->isTaxCodeRequired()) {
             return true;
         }
         $return = $this->checkTaxCode($taxCode);
@@ -31,8 +34,8 @@ class Webgriffe_TaxIdPro_Model_Attribute_Data_Taxcode extends Mage_Eav_Model_Att
             return $helper->__('"%s" is a required value.', $label);
         }
 
-        if (strlen($taxCode) != 16) {
-            return $helper->__('"%s" length must be %d characters.', $label, 16);
+        if (strlen($taxCode) != 16 && strlen($taxCode) != 11) {
+            return $helper->__('"%s" length must be %d characters or %d characters.', $label, 16, 11);
         }
 
         $taxCode = strtoupper($taxCode);
@@ -40,6 +43,30 @@ class Webgriffe_TaxIdPro_Model_Attribute_Data_Taxcode extends Mage_Eav_Model_Att
             return $helper->__('"%s" must contains only letters and numbers.', $label);
         }
 
+        if (strlen($taxCode) === 16 && !$this->validateTaxCodeCheckDigit($taxCode)) {
+            return $helper->__('"%s" is not valid. The control character does not match.', $label);
+        }
+        if (strlen($taxCode) === 11 && !$this->validateVatNumberCheckDigit($taxCode)) {
+            return $helper->__('"%s" is not valid. The control character does not match.', $label);
+        }
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    private function isItalianAddress()
+    {
+        return $this->getExtractedData('country_id') === 'IT';
+    }
+
+    /**
+     * @param $taxCode
+     * @return bool
+     */
+    private function validateTaxCodeCheckDigit($taxCode)
+    {
         $s = 0;
 
         for ($i = 1; $i <= 13; $i += 2) {
@@ -166,9 +193,13 @@ class Webgriffe_TaxIdPro_Model_Attribute_Data_Taxcode extends Mage_Eav_Model_Att
         }
 
         if (chr($s % 26 + ord('A')) != $taxCode[15]) {
-            return $helper->__('"Tax Code" is not valid. The control character does not match.', $label);
+            return false;
         }
-
         return true;
+    }
+
+    private function validateVatNumberCheckDigit($taxCode)
+    {
+        return Mage::helper('webgriffe_taxidpro')->validateVatNumberCheckDigit($taxCode);
     }
 }
