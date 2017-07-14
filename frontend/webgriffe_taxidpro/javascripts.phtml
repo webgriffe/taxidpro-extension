@@ -10,11 +10,15 @@
     function <?php echo $blockAlias ?>CountryIsRequired(element) {
         var taxCodeIsRequiredForItaly = <?php echo json_encode($this->helper('webgriffe_taxidpro')->isTaxCodeRequired()) ?>;
         if(taxCodeIsRequiredForItaly && element.getValue() == 'IT') {
-            $('<?php echo $editBlock->getTaxCodeEmId() ?>').innerHTML = '*';
+            if ($('<?php echo $editBlock->getTaxCodeEmId() ?>')) {
+                $('<?php echo $editBlock->getTaxCodeEmId() ?>').innerHTML = '*';
+            }
             $('<?php echo $editBlock->getTaxCodeId() ?>').addClassName('required-entry');
         }
         else {
-            $('<?php echo $editBlock->getTaxCodeEmId() ?>').innerHTML = '';
+            if ($('<?php echo $editBlock->getTaxCodeEmId() ?>')) {
+                $('<?php echo $editBlock->getTaxCodeEmId() ?>').innerHTML = '';
+            }
             if ($('advice-required-entry-<?php echo $editBlock->getTaxCodeId() ?>')) {
                 $('advice-required-entry-<?php echo $editBlock->getTaxCodeId() ?>').hide();
             }
@@ -23,15 +27,21 @@
 
         var vatNumberIsRequiredForItaly = <?php echo json_encode($this->helper('webgriffe_taxidpro')->isVatNumberRequired()) ?>;
         if(vatNumberIsRequiredForItaly && element.getValue() == 'IT') {
-            $('<?php echo $editBlock->getVatNumberEmId() ?>').innerHTML = '*';
+            if ($('<?php echo $editBlock->getVatNumberEmId() ?>')) {
+                $('<?php echo $editBlock->getVatNumberEmId() ?>').innerHTML = '*';
+            }
             $('<?php echo $editBlock->getVatNumberId() ?>').addClassName('required-entry');
+            $('<?php echo $editBlock->getCompanyId() ?>').addClassName('required-entry');
         }
         else {
-            $('<?php echo $editBlock->getVatNumberEmId() ?>').innerHTML = '';
+            if ($('<?php echo $editBlock->getVatNumberEmId() ?>')) {
+                $('<?php echo $editBlock->getVatNumberEmId() ?>').innerHTML = '';
+            }
             if ($('advice-required-entry-<?php echo $editBlock->getVatNumberId() ?>')) {
                 $('advice-required-entry-<?php echo $editBlock->getVatNumberId() ?>').hide();
             }
             $('<?php echo $editBlock->getVatNumberId() ?>').removeClassName('required-entry');
+            $('<?php echo $editBlock->getCompanyId() ?>').removeClassName('required-entry');
         }
     }
 
@@ -93,20 +103,20 @@
         return ( ( 10 - s%10 )%10 == pi.charCodeAt(10) - '0'.charCodeAt(0) );
     }
 
-    function toggleBusinessFields(isBusinessAddressElement) {
+    function <?php echo $blockAlias ?>ToggleBusinessFields(isBusinessAddressElement) {
         if (parseInt(isBusinessAddressElement.getValue())) { // If is a business address...
-            $$('.show-in-business-only').invoke('show');
+            isBusinessAddressElement.up('form').select('.show-in-business-only').invoke('show');
         }
         else {
             $('<?php echo $editBlock->getVatNumberId() ?>').setValue('');
             $('<?php echo $editBlock->getCompanyId() ?>').setValue('');
-            $$('.show-in-business-only').invoke('hide');
+            isBusinessAddressElement.up('form').select('.show-in-business-only').invoke('hide');
         }
     }
 
     Event.observe(window, 'load', function() {
         $('<?php echo $editBlock->getIsBusinessAddressId() ?>').observe('change', function(event) {
-            toggleBusinessFields(this);
+            <?php echo $blockAlias ?>ToggleBusinessFields(this);
         });
 
         $('<?php echo $editBlock->getTaxCodeId() ?>').observe('blur', function(event) {
